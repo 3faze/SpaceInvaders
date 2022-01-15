@@ -45,7 +45,7 @@ enemy.speed(0)
 enemy.setposition(-200, 250)
 enemy.showturtle()
 
-enemySpeed = 7
+enemySpeed = 2
 
 #Player's Weapon
 bullet = t.Turtle()
@@ -81,21 +81,43 @@ def move_right():
 		player.setx(x)
 
 #Fire
-#def fire_bullet():
-	#global bulletState
+def fire_bullet():
+    global bulletState
+    if bulletState == "Ready":
+        bulletState = "Fire"
+        x = player.xcor()
+        y = player.ycor()
+        bullet.setposition(x, y + 10)
+        bullet.showturtle()
+        
 
 #def isCollision(t1, t2):
+    
 	
 
 #def isCollision2(t1, t2):
 	
 
 t.listen()
-t.onkeypress(move_left, "Left")
-t.onkeypress(move_right, "Right")
-#t.onkeypress(fire_bullet, "Space")
-
+t.onkeypress(move_left, "a")
+t.onkeypress(move_right, "d")
+t.onkeypress(fire_bullet, "space")
 
 #Main Loop
 while True:
-	sc.update()
+    sc.update()
+
+    #Move Enemy
+    x = enemy.xcor()
+    x += enemySpeed
+    enemy.setx(x)
+
+    if enemy.xcor() > 290 or enemy.xcor() < -290:
+        enemySpeed *= -1
+        y = enemy.ycor()
+        y -= 40
+        enemy.sety(y)
+    if bulletState == "Fire":
+        y = bullet.ycor()
+        y += bulletSpeed
+        bullet.sety(y)
