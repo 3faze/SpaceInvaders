@@ -1,3 +1,4 @@
+```
 import turtle as t
 import math
 
@@ -121,3 +122,4 @@ while True:
         y = bullet.ycor()
         y += bulletSpeed
         bullet.sety(y)
+```
